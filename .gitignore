@@ -4,3 +4,15 @@
 
 /.vs
 /BallastLaneBackEnd/obj
+/src/BallastLaneBackEnd.Domain/obj/Debug/net6.0/BallastLaneBackEnd.Domain.AssemblyInfo.cs
+/src/BallastLaneBackEnd.Domain/obj/Debug/net6.0/BallastLaneBackEnd.Domain.AssemblyInfoInputs.cache
+/src/BallastLaneBackEnd.Infra/obj/Debug/net6.0/BallastLaneBackEnd.Infra.AssemblyInfo.cs
+/src/BallastLaneBackEnd.Infra/obj/Debug/net6.0/BallastLaneBackEnd.Infra.AssemblyInfoInputs.cache
+/src/BallastLaneBackEnd.Infra/obj/Debug/net6.0/BallastLaneBackEnd.Infra.assets.cache
+/src/BallastLaneBackEnd.Infra/obj/Debug/net6.0/BallastLaneBackEnd.Infra.GeneratedMSBuildEditorConfig.editorconfig
+/src/BallastLaneBackEnd.Infra/obj/Release/net6.0/BallastLaneBackEnd.Infra.AssemblyInfo.cs
+/src/BallastLaneBackEnd.Infra/obj/Release/net6.0/BallastLaneBackEnd.Infra.AssemblyInfoInputs.cache
+/src/BallastLaneBackEnd.Infra/obj/Release/net6.0/BallastLaneBackEnd.Infra.assets.cache
+/src/BallastLaneBackEnd.Infra/obj/Release/net6.0/BallastLaneBackEnd.Infra.GeneratedMSBuildEditorConfig.editorconfig
+/src/BallastLaneBackEnd.Domain/obj/Release/net6.0/BallastLaneBackEnd.Domain.AssemblyInfo.cs
+/src/BallastLaneBackEnd.Domain/obj/Release/net6.0/BallastLaneBackEnd.Domain.AssemblyInfoInputs.cache
