@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.csproj": {}
+    "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.csproj": {
+    "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.csproj",
-        "projectName": "BallastLaneBackEnd",
-        "projectPath": "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.csproj",
+        "projectUniqueName": "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.Api.csproj",
+        "projectName": "BallastLaneBackEnd.Api",
+        "projectPath": "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.Api.csproj",
         "packagesPath": "C:\\Users\\joao.guarana\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\obj\\",
         "projectStyle": "PackageReference",

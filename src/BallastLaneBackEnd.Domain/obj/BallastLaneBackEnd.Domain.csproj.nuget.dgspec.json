@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.csproj": {}
+    "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd.Domain\\BallastLaneBackEnd.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.csproj": {
+    "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd.Domain\\BallastLaneBackEnd.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.csproj",
-        "projectName": "BallastLaneBackEnd",
-        "projectPath": "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\BallastLaneBackEnd.csproj",
+        "projectUniqueName": "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd.Domain\\BallastLaneBackEnd.Domain.csproj",
+        "projectName": "BallastLaneBackEnd.Domain",
+        "projectPath": "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd.Domain\\BallastLaneBackEnd.Domain.csproj",
         "packagesPath": "C:\\Users\\joao.guarana\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd\\obj\\",
+        "outputPath": "C:\\Users\\joao.guarana\\Source\\Repos\\BallastLaneBackEnd\\src\\BallastLaneBackEnd.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,16 +50,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
-              "target": "Package",
-              "version": "[1.19.6, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[6.5.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -72,9 +62,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
