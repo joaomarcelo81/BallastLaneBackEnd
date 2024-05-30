@@ -1,4 +1,4 @@
-namespace BallastLaneBackEnd
+namespace BallastLaneBackEnd.Api
 {
     public class WeatherForecast
     {

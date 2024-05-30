@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace BallastLaneBackEnd.Controllers
+namespace BallastLaneBackEnd.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
