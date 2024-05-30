@@ -35,3 +35,17 @@
 /src/BallastLaneBackEnd/obj/Release/net6.0/BallastLaneBackEnd.Api.AssemblyInfo.cs
 /src/BallastLaneBackEnd/obj/Release/net6.0/BallastLaneBackEnd.Api.AssemblyInfoInputs.cache
 /src/BallastLaneBackEnd/BallastLaneBackEnd.Api.csproj.user
+/BallastLaneBackEnd.Application/obj/Debug/net6.0
+/BallastLaneBackEnd.Application/obj
+/src/BallastLaneBackEnd.Api/bin/Debug/net6.0
+/src/BallastLaneBackEnd.Api/obj
+/src/BallastLaneBackEnd.Domain/obj/Debug/net6.0/BallastLaneBackEnd.Domain.assets.cache
+/src/BallastLaneBackEnd.Domain/obj/Debug/net6.0/BallastLaneBackEnd.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/src/BallastLaneBackEnd.Domain/obj/BallastLaneBackEnd.Domain.csproj.nuget.dgspec.json
+/src/BallastLaneBackEnd.Domain/obj/project.nuget.cache
+/src/BallastLaneBackEnd.Infra/obj/BallastLaneBackEnd.Infra.csproj.nuget.dgspec.json
+/src/BallastLaneBackEnd.Infra/obj/BallastLaneBackEnd.Infra.csproj.nuget.g.props
+/src/BallastLaneBackEnd.Infra/obj/BallastLaneBackEnd.Infra.csproj.nuget.g.targets
+/src/BallastLaneBackEnd.Infra/obj/Debug/net6.0/BallastLaneBackEnd.Infra.csproj.AssemblyReference.cache
+/src/BallastLaneBackEnd.Infra/obj/project.assets.json
+/src/BallastLaneBackEnd.Infra/obj/project.nuget.cache
