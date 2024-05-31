@@ -49,3 +49,10 @@
 /src/BallastLaneBackEnd.Infra/obj/Debug/net6.0/BallastLaneBackEnd.Infra.csproj.AssemblyReference.cache
 /src/BallastLaneBackEnd.Infra/obj/project.assets.json
 /src/BallastLaneBackEnd.Infra/obj/project.nuget.cache
+/src/BallastLaneBackEnd.Application/obj/Debug/net6.0
+/src/BallastLaneBackEnd.Application/obj
+/src/BallastLaneBackEnd.Application/bin/Debug/net6.0
+/src/BallastLaneBackEnd.CrossCutting.IoC/bin/Debug/net6.0
+/src/BallastLaneBackEnd.CrossCutting.IoC/obj
+/src/BallastLaneBackEnd.Domain/obj/Debug/net6.0
+/src/BallastLaneBackEnd.Infra/obj/Debug/net6.0
