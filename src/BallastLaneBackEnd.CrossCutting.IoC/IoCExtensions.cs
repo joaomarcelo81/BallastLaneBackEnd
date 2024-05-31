@@ -1,7 +1,10 @@
-﻿//using BallastLaneBackEnd.Application;
-//using BallastLaneBackEnd.Domain.Entities;
-//using BallastLaneBackEnd.Domain.Interfaces.Services;
-//using Microsoft.AspNetCore.Builder;
+﻿
+using BallastLaneBackEnd.Application;
+using BallastLaneBackEnd.Domain.Entities;
+using BallastLaneBackEnd.Domain.Interfaces.Repositories;
+using BallastLaneBackEnd.Domain.Interfaces.Services;
+using BallastLaneBackEnd.Infra.Repositories;
+using BallastLaneBackEnd.Infra.Repository.Base;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BallastLaneBackEnd.CrossCutting.IoC
@@ -12,16 +15,27 @@ namespace BallastLaneBackEnd.CrossCutting.IoC
         {
             //  services.RegisterAutoMapper();
             services.RegisterServices();
-
+            services.RegisterRespository();
             return services;
         }
 
 
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-        //    services.AddTransient<IStudentService, StudentService>();
-         
+           services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<ISubjectService, SubjectService>();
+            services.AddTransient<IClassService, ClassService>();
+            services.AddTransient<ITeacherService, TeacherService>();
 
+            return services;
+        }
+
+        public static IServiceCollection RegisterRespository(this IServiceCollection services)
+        {
+            services.AddTransient<IRepository<Student>, StudentRepository>();
+            services.AddTransient<IRepository<Subject>, SubjectRepository>();
+            services.AddTransient<IRepository<Class>, ClassRepository>();
+            services.AddTransient<IRepository<Teacher>, TeacherRepository>();
             return services;
         }
 

@@ -9,6 +9,7 @@ using BallastLaneBackEnd.Domain.Util;
 using BallastLaneBackEnd.Domain.Entities;
 using AutoMapper;
 using BallastLaneBackEnd.Domain.DTO.Class;
+using BallastLaneBackEnd.Domain.Interfaces.Services;
 
 namespace BallastLaneBackEnd.Application
 {
@@ -29,7 +30,7 @@ namespace BallastLaneBackEnd.Application
             _settings = settings;
             _mapper = mapper;
         }
-        public async Task<int> Adicionar(ClassRequest classesRequest)
+        public async Task<int> Add(ClassRequest classesRequest)
         {
             _logger.LogInformation($"Adiciondo um classes", classesRequest);
             try
@@ -45,7 +46,7 @@ namespace BallastLaneBackEnd.Application
             }
         }
 
-        public async Task<int> Atualizar(int id, ClassRequest classesRequest)
+        public async Task<int> Update(int id, ClassRequest classesRequest)
         {
 
             _logger.LogInformation($"atualizando um classes", classesRequest);
@@ -62,7 +63,7 @@ namespace BallastLaneBackEnd.Application
                 throw;
             }
         }
-        public async Task<ClassResponse> ObterClass(int id)
+        public async Task<ClassResponse> Get(int id)
         {
             _logger.LogInformation($"Buscar um classes pelo id");
             try
@@ -77,7 +78,7 @@ namespace BallastLaneBackEnd.Application
                 throw;
             }
         }
-        public async Task<int> RemoverClass(int id)
+        public async Task<int> Delete(int id)
         {
             _logger.LogInformation($"Remover um classes pelo id");
             try
@@ -92,7 +93,7 @@ namespace BallastLaneBackEnd.Application
                 throw;
             }
         }
-        public async Task<IList<ClassResponse>> listaClasss()
+        public async Task<IList<ClassResponse>> List()
         {
             _logger.LogInformation($"listando todos os classess");
             try

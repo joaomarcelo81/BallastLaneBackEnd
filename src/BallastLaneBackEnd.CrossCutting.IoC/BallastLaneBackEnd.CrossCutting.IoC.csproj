@@ -10,4 +10,10 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BallastLaneBackEnd.Application\BallastLaneBackEnd.Application.csproj" />
+    <ProjectReference Include="..\BallastLaneBackEnd.Domain\BallastLaneBackEnd.Domain.csproj" />
+    <ProjectReference Include="..\BallastLaneBackEnd.Infra\BallastLaneBackEnd.Infra.csproj" />
+  </ItemGroup>
+
 </Project>

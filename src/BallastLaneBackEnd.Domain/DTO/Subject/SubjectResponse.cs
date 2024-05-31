@@ -9,7 +9,7 @@ namespace BallastLaneBackEnd.Domain.DTO.Subject
 {
     public class SubjectResponse
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public List<ClassResponse> Classes { get; set; }
     }

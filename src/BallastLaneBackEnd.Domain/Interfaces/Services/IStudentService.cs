@@ -1,4 +1,5 @@
 ﻿using BallastLaneBackEnd.Domain.DTO.Student;
+using BallastLaneBackEnd.Domain.DTO.Subject;
 using BallastLaneBackEnd.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,10 @@ namespace BallastLaneBackEnd.Domain.Interfaces.Services
 {
     public interface IStudentService
     {
-        Task<StudentResponse> ObterStudent(int Id);
-        Task<int> Atualizar(int Id, StudentRequest Student);
-        Task<int> Adicionar(StudentRequest Student);
-        Task<IList<StudentResponse>> listaStudents();
-        Task<int> RemoverStudent(int Id);
-        Task<int> BuscarDadosAlura(string nomeStudent);
+        Task<int> Add(StudentRequest subjectRequest);
+        Task<int> Update(int id, StudentRequest subjectRequest);
+        Task<IList<StudentResponse>> List();
+        Task<StudentResponse> Get(int id);
+        Task<int> Delete(int id);
     }
 }

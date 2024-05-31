@@ -1,97 +1,73 @@
-﻿using BallastLaneBackEnd.Domain.Entities;
-using BallastLaneBackEnd.Infra;
+﻿using BallastLaneBackEnd.Domain.DTO.Student;
+using BallastLaneBackEnd.Domain.Entities;
+using BallastLaneBackEnd.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BallastLaneBackEnd.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentsController : ControllerBase
+    public class StudentController : ControllerBase
     {
-        private readonly SchoolContext _context;
+        private readonly IStudentService _service;
 
-        public StudentsController(SchoolContext context)
+        public StudentController(IStudentService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
+        public async Task<ActionResult> GetStudents()
         {
-            return await _context.Students.ToListAsync();
+            return Ok( await _service.List());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> GetStudent(int id)
+        public async Task<ActionResult> GetStudent(int id)
         {
-            var student = await _context.Students.FindAsync(id);
+            var subject = await _service.Get(id);
 
-            if (student == null)
+            if (subject == null)
             {
                 return NotFound();
             }
 
-            return student;
+            return Ok(subject);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student student)
+        public async Task<ActionResult> PostStudent(StudentRequest subject)
         {
-            _context.Students.Add(student);
-            await _context.SaveChangesAsync();
+            await _service.Add(subject);
 
-            return CreatedAtAction(nameof(GetStudent), new { id = student.Id }, student);
+            if (subject == null)
+            {
+                return NotFound();
+            }
+
+            return StatusCode(201);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(int id, Student student)
+        public async Task<ActionResult> PutStudent(int id, StudentRequest subject)
         {
-            if (id != student.Id)
+            if (id != subject.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(student).State = EntityState.Modified;
+            await _service.Update(id, subject);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StudentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
+            await _service.Delete(id);
 
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool StudentExists(int id)
-        {
-            return _context.Students.Any(e => e.Id == id);
+            return Ok();
         }
     }
 }

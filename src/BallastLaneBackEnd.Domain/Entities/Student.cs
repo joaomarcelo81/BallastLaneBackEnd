@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BallastLaneBackEnd.Domain.Entities
 {
-    public class Student
+    public class Student : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
         public List<Class> Classes { get; set; }

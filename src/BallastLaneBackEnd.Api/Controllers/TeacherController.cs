@@ -1,4 +1,4 @@
-﻿using BallastLaneBackEnd.Domain.DTO.Class;
+﻿using BallastLaneBackEnd.Domain.DTO.Teacher;
 using BallastLaneBackEnd.Domain.Entities;
 using BallastLaneBackEnd.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
@@ -8,23 +8,23 @@ namespace BallastLaneBackEnd.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassController : ControllerBase
+    public class TeacherController : ControllerBase
     {
-        private readonly IClassService _service;
+        private readonly ITeacherService _service;
 
-        public ClassController(IClassService service)
+        public TeacherController(ITeacherService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ClassResponse>> GetClasss()
+        public async Task<IEnumerable<TeacherResponse>> GetTeachers()
         {
             return await _service.List();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetClass(int id)
+        public async Task<ActionResult> GetTeacher(int id)
         {
             var subject = await _service.Get(id);
 
@@ -37,7 +37,7 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostClass(ClassRequest subject)
+        public async Task<ActionResult> PostTeacher(TeacherRequest subject)
         {
             await _service.Add(subject);
 
@@ -50,7 +50,7 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutClass(int id, ClassRequest subject)
+        public async Task<ActionResult> PutTeacher(int id, TeacherRequest subject)
         {
             if (id != subject.Id)
             {
@@ -63,7 +63,7 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClass(int id)
+        public async Task<IActionResult> DeleteTeacher(int id)
         {
             await _service.Delete(id);
 

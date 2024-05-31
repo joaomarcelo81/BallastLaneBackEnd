@@ -1,4 +1,4 @@
-﻿using BallastLaneBackEnd.Domain.DTO.Class;
+﻿using BallastLaneBackEnd.Domain.DTO.Subject;
 using BallastLaneBackEnd.Domain.Entities;
 using BallastLaneBackEnd.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
@@ -8,23 +8,23 @@ namespace BallastLaneBackEnd.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassController : ControllerBase
+    public class SubjectController : ControllerBase
     {
-        private readonly IClassService _service;
+        private readonly ISubjectService _service;
 
-        public ClassController(IClassService service)
+        public SubjectController(ISubjectService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ClassResponse>> GetClasss()
+        public async Task<IEnumerable<SubjectResponse>> GetSubjects()
         {
             return await _service.List();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetClass(int id)
+        public async Task<ActionResult> GetSubject(int id)
         {
             var subject = await _service.Get(id);
 
@@ -37,9 +37,9 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostClass(ClassRequest subject)
+        public async Task<ActionResult> PostSubject(SubjectRequest subject)
         {
-            await _service.Add(subject);
+           await _service.Add(subject);
 
             if (subject == null)
             {
@@ -50,7 +50,7 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutClass(int id, ClassRequest subject)
+        public async Task<ActionResult> PutSubject(int id, SubjectRequest subject)
         {
             if (id != subject.Id)
             {
@@ -63,11 +63,11 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClass(int id)
+        public async Task<IActionResult> DeleteSubject(int id)
         {
             await _service.Delete(id);
 
             return Ok();
-        }
+        }     
     }
 }

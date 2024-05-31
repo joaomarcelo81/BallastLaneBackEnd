@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BallastLaneBackEnd.Domain.Interfaces.Services
 {
-    public interface IService<T> where T : class, IEntity
+    public interface IServiceBase<T> where T : class, IEntity
     {
         Task<List<T>> GetAll();
         Task<T> Get(int id);
