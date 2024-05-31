@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BallastLaneBackEnd.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Xml.Linq;
 
 namespace BallastLaneBackEnd.Domain.Entities
 {
-    public class Class
+    public class Class: BaseEntity
     {
         public int Id { get; set; }
         public int SubjectId { get; set; }

@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BallastLaneBackEnd.CrossCutting.IoC\BallastLaneBackEnd.CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\BallastLaneBackEnd.Domain\BallastLaneBackEnd.Domain.csproj" />
+    <ProjectReference Include="..\BallastLaneBackEnd.Infra\BallastLaneBackEnd.Infra.csproj" />
+  </ItemGroup>
+
 </Project>

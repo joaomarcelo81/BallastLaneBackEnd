@@ -1,5 +1,4 @@
-﻿using BallastLaneBackEnd.Domain.Dto.Reponse;
-using BallastLaneBackEnd.Domain.Dto.Request;
+﻿using BallastLaneBackEnd.Domain.DTO.Student;
 using BallastLaneBackEnd.Domain.Entities;
 using System;
 using System.Collections.Generic;

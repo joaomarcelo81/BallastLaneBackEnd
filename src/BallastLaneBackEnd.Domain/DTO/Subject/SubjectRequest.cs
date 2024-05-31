@@ -5,15 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BallastLaneBackEnd.Domain.DTO.Student
+namespace BallastLaneBackEnd.Domain.DTO.Subject
 {
-    public class StudentRequest
+    public class SubjectRequest
     {
+
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
         public List<ClassRequest> Classes { get; set; }
-
 
     }
 }
