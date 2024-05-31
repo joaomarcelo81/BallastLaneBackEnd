@@ -2,6 +2,7 @@
 using BallastLaneBackEnd.Infra;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BallastLaneBackEnd.Api.Controllers
 {
