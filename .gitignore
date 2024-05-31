@@ -56,3 +56,8 @@
 /src/BallastLaneBackEnd.CrossCutting.IoC/obj
 /src/BallastLaneBackEnd.Domain/obj/Debug/net6.0
 /src/BallastLaneBackEnd.Infra/obj/Debug/net6.0
+/src/BallastLaneBackEnd.Domain/bin/Debug/net6.0
+/src/BallastLaneBackEnd.Infra/bin/Debug/net6.0
+/src/BallastLaneBackEnd.Domain/obj/Release/net6.0/BallastLaneBackEnd.Domain.assets.cache
+/src/BallastLaneBackEnd.Domain/obj/Release/net6.0/BallastLaneBackEnd.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/src/BallastLaneBackEnd.Infra/obj/Release/net6.0
