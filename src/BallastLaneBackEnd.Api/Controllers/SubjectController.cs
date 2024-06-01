@@ -37,7 +37,7 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostSubject(SubjectRequest subject)
+        public async Task<ActionResult> PostSubject(CreateSubjectRequest subject)
         {
            await _service.Add(subject);
 
@@ -50,7 +50,7 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutSubject(int id, SubjectRequest subject)
+        public async Task<ActionResult> PutSubject(int id, UpdateSubjectRequest subject)
         {
             if (id != subject.Id)
             {

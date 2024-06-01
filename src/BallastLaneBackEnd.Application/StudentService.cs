@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
 using BallastLaneBackEnd.Domain.DTO.Student;
-using BallastLaneBackEnd.Domain.DTO.Subject;
 using BallastLaneBackEnd.Domain.Entities;
 using BallastLaneBackEnd.Domain.Interfaces.Repositories;
 using BallastLaneBackEnd.Domain.Interfaces.Services;
 using BallastLaneBackEnd.Domain.Util;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BallastLaneBackEnd.Application
 {
@@ -33,11 +27,15 @@ namespace BallastLaneBackEnd.Application
             _mapper = mapper;
         }
 
-
-
-        public Task<int> Add(StudentRequest classesRequest)
+        public async Task<int> Add(CreateStudentRequest studentRequest)
         {
-            throw new NotImplementedException();
+            var student = await _studentRepository.Add(new Student()
+            {
+                Name = studentRequest.Name
+                ,BirthDate = studentRequest.BirthDate
+            });
+
+            return student.Id;
         }
 
         public Task<int> Delete(int id)
@@ -45,9 +43,20 @@ namespace BallastLaneBackEnd.Application
             throw new NotImplementedException();
         }
 
-        public Task<StudentResponse> Get(int id)
+        public async Task<StudentResponse> Get(int id)
         {
-            throw new NotImplementedException();
+            var student = await _studentRepository.Get(id);
+
+            //  return list.Select(x => _mapper.Map<StudentResponse>(x)).ToList();
+
+            return new StudentResponse()
+            {
+                Id = student.Id
+                ,
+                Name = student.Name
+                ,
+                BirthDate = student.BirthDate
+            };
         }
 
         public async Task<IList<StudentResponse>> List()
@@ -64,9 +73,22 @@ namespace BallastLaneBackEnd.Application
             });
         }
 
-        public Task<int> Update(int id, StudentRequest classesRequest)
+        public async Task<int> Update(int id, UpdateStudentRequest studentRequest)
         {
-            throw new NotImplementedException();
+
+            _logger.LogInformation($"atualizando um student", studentRequest);
+            try
+            {
+                var studentNovo = _mapper.Map<Student>(studentRequest);
+                studentNovo.Id = id;
+                var student = await _studentRepository.Update(studentNovo);
+                return id;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Erro ao atualizar um student", studentRequest);
+                throw;
+            }
         }
     }
 }

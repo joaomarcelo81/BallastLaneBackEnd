@@ -17,44 +17,78 @@ namespace BallastLaneBackEnd.Application
     {
         private readonly IRepository<Class> _classesRepository;
 
+        private readonly IRepository<Student> _studentRepository;
+
         private readonly ILogger<ClassService> _logger;
 
         private readonly Settings _settings;
 
         private readonly IMapper _mapper;
 
-        public ClassService(IMapper mapper, ILogger<ClassService> logger, Settings settings, IRepository<Class> classesRepository)
+        public ClassService(IMapper mapper, ILogger<ClassService> logger, Settings settings
+            , IRepository<Class> classesRepository, IRepository<Student> studentRepository)
         {
             _classesRepository = classesRepository;
             _logger = logger;
             _settings = settings;
             _mapper = mapper;
+            _studentRepository = studentRepository;
         }
-        public async Task<int> Add(ClassRequest classesRequest)
+        public async Task<int> Add(CreateClassRequest createClassesRequest)
         {
-            _logger.LogInformation($"Adiciondo um classes", classesRequest);
+            _logger.LogInformation($"Adiciondo um classes", createClassesRequest);
             try
             {
-                var classes = _mapper.Map<Class>(classesRequest);
+                var classes = _mapper.Map<Class>(createClassesRequest);
                 classes = await _classesRepository.Add(classes);
                 return classes.Id;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"ao adicionar um classes", classesRequest);
+                _logger.LogError(ex, $"ao adicionar um classes", createClassesRequest);
                 throw;
             }
         }
 
-        public async Task<int> Update(int id, ClassRequest classesRequest)
+        public async Task<int> Update(int id, UpdateClassRequest classesRequest)
         {
 
             _logger.LogInformation($"atualizando um classes", classesRequest);
             try
             {
-                var classesNovo = _mapper.Map<Class>(classesRequest);
-                classesNovo.Id = id;
-                var classes = await _classesRepository.Update(classesNovo);
+                var classToBeUpdate = await _classesRepository.Get(id);
+                var classRequestUpdated = _mapper.Map<Class>(classesRequest);
+                classRequestUpdated.Id = id;
+                if (!string.IsNullOrWhiteSpace(classRequestUpdated.Number))
+                {
+                    classToBeUpdate.Number = classRequestUpdated.Number;
+                }
+                if (classRequestUpdated.TeacherId.HasValue)
+                {
+                    classToBeUpdate.TeacherId = classRequestUpdated.TeacherId.Value;
+                }
+                if (classRequestUpdated.SubjectId.HasValue)
+                {
+                    classToBeUpdate.SubjectId = classRequestUpdated.SubjectId.Value;
+                }
+                if (classRequestUpdated.Students.Any())
+                {
+                    if (classToBeUpdate.Students != null)
+                    {
+                        classToBeUpdate.Students.Clear();
+                        await _classesRepository.Update(classToBeUpdate);
+                    }
+
+                    else { classToBeUpdate.Students = new List<Student>(); }
+                    foreach (var student in classRequestUpdated.Students)
+                    {
+                        classToBeUpdate.Students.Add(await _studentRepository.Get(student.Id));
+                    }
+                }
+
+                classToBeUpdate.UpdateDate = DateTime.Now;  
+
+                var classes = await _classesRepository.Update(classToBeUpdate);
                 return id;
             }
             catch (Exception ex)

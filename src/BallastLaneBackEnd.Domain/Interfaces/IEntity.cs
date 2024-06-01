@@ -10,5 +10,7 @@ namespace BallastLaneBackEnd.Domain.Interfaces
     {
         int Id { get; set; }
         DateTime CreateDate { get; set; }
+        DateTime? UpdateDate { get; set; }
+        DateTime? DeleteDate { get; set; }
     }
 }

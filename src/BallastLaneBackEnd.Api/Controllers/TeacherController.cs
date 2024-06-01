@@ -37,7 +37,7 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostTeacher(TeacherRequest subject)
+        public async Task<ActionResult> PostTeacher(CreateTeacherRequest subject)
         {
             await _service.Add(subject);
 
@@ -50,7 +50,7 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutTeacher(int id, TeacherRequest subject)
+        public async Task<ActionResult> PutTeacher(int id, UpdateTeacherRequest subject)
         {
             if (id != subject.Id)
             {

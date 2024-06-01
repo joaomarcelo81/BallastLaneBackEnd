@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BallastLaneBackEnd.Domain.DTO.Subject
 {
-    public class SubjectResponse
+    public class CreateSubjectRequest
     {
-        public long Id { get; set; }
         public string Name { get; set; }
-  
+       
+
     }
 }

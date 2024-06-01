@@ -1,11 +1,14 @@
-﻿using BallastLaneBackEnd.Domain.DTO.Student;
+﻿
+using BallastLaneBackEnd.Domain.DTO.Student;
 using BallastLaneBackEnd.Domain.Entities;
 using BallastLaneBackEnd.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BallastLaneBackEnd.Api.Controllers
 {
+   // [Authorize(Policy = "ApiKeyPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
@@ -37,7 +40,7 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostStudent(StudentRequest subject)
+        public async Task<ActionResult> PostStudent(CreateStudentRequest subject)
         {
             await _service.Add(subject);
 
@@ -50,7 +53,7 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutStudent(int id, StudentRequest subject)
+        public async Task<ActionResult> PutStudent(int id, UpdateStudentRequest subject)
         {
             if (id != subject.Id)
             {

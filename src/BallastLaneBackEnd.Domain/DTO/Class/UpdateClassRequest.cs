@@ -9,16 +9,12 @@ using System.Threading.Tasks;
 
 namespace BallastLaneBackEnd.Domain.DTO.Class
 {
-    public class ClassRequest
+    public class UpdateClassRequest
     {
-
         public int Id { get; set; }
-        public int SubjectId { get; set; }
-        public SubjectRequest Subject { get; set; }
-        public int TeacherId { get; set; }
-        public TeacherRequest Teacher { get; set; }
-        public List<StudentRequest> Students { get; set; }
-
-
+        public string? Number { get; set; }
+        public int? SubjectId { get; set; }      
+        public int? TeacherId { get; set; } 
+        public IList<StudentRequest> Students { get; set; } = new List<StudentRequest>();
     }
 }

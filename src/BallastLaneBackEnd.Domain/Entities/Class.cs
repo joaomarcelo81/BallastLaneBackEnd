@@ -10,10 +10,12 @@ namespace BallastLaneBackEnd.Domain.Entities
 {
     public class Class: BaseEntity
     {
-        public int SubjectId { get; set; }
-        public Subject Subject { get; set; }
-        public int TeacherId { get; set; }
-        public Teacher Teacher { get; set; }
-        public List<Student> Students { get; set; }
+
+        public string Number { get; set; }
+        public int? SubjectId { get; set; }
+        public Subject? Subject { get; set; }
+        public int? TeacherId { get; set; }
+        public Teacher? Teacher { get; set; }
+        public virtual IList<Student>? Students { get; set; }
     }
 }

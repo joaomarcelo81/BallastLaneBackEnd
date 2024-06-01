@@ -12,6 +12,6 @@ namespace BallastLaneBackEnd.Domain.DTO.Teacher
         public int Id { get; set; }
         public string Name { get; set; }
         public string SubjectSpecialty { get; set; }
-        public List<ClassResponse> Classes { get; set; }
+      
     }
 }

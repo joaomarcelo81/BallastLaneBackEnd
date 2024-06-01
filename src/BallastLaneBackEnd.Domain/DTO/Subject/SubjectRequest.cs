@@ -9,10 +9,7 @@ namespace BallastLaneBackEnd.Domain.DTO.Subject
 {
     public class SubjectRequest
     {
-
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<ClassRequest> Classes { get; set; }
-
+        public long Id { get; set; }
+    
     }
 }

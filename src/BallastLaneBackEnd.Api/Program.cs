@@ -4,6 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using BallastLaneBackEnd.CrossCutting.IoC;
 using BallastLaneBackEnd.Domain.Util;
 using Microsoft.OpenApi.Models;
+//using BallastLaneBackEnd.Api.Middleware;
+using BallastLaneBackEnd.Api.Handler;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using BallastLaneBackEnd.Api.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +30,19 @@ builder.Services.AddSingleton(settings);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
+//builder.Services.AddDbContext<SchoolContext>(options =>
+//    options.UseInMemoryDatabase("InMemoryDb"));
+
+var folder = Environment.SpecialFolder.LocalApplicationData;
+var path = Environment.GetFolderPath(folder);
+var DbPath = System.IO.Path.Join(path, "School.db");
+
 builder.Services.AddDbContext<SchoolContext>(options =>
-    options.UseInMemoryDatabase("InMemoryDb"));
+    options.UseSqlite($"Data Source={DbPath}"));
+
+
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -40,8 +56,26 @@ c.SwaggerDoc("v1", new()
         Email = "Joaomarcelo@teste.com"
 
     },
-    Description = "Api para o Desafio proposto para vaga oferecida Não esquecer de inserir a Apikey: 414fde74-d5e6-48ab-8063-9111c6b74d71",
+    Description = "API for the Proposed Challenge for the Offered Position\r\nDon't forget to insert the Apikey: 414fde74-d5e6-48ab-8063-9111c6b74d71",
 });
+    c.EnableAnnotations();
+    c.AddSecurityDefinition("X-API-Key", new OpenApiSecurityScheme
+    {
+        Name = "X-API-Key",
+        In = ParameterLocation.Header,
+        Scheme = "X-API-Key",
+        Type = SecuritySchemeType.ApiKey,
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "X-API-Key" }
+            },
+            new List<string>()
+        }
+    });
 });
 
 builder.Services.AddSharedServices();
@@ -50,6 +84,24 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //builder.Services.AddDbContext<SchoolContext>(options =>
 //     options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddTransient<IApiKeyValidation, ApiKeyValidation>();
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ApiKeyPolicy", policy =>
+    {
+        policy.AddAuthenticationSchemes(new[] { JwtBearerDefaults.AuthenticationScheme });
+        policy.Requirements.Add(new ApiKeyRequirement());
+    });
+
+});
+builder.Services.AddScoped<IAuthorizationHandler, ApiKeyHandler>();
 
 var app = builder.Build();
 

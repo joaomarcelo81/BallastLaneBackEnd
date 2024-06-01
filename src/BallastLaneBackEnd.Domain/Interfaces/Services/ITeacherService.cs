@@ -9,8 +9,8 @@ namespace BallastLaneBackEnd.Domain.Interfaces.Services
 {
     public interface ITeacherService
     {
-        Task<int> Add(TeacherRequest classesRequest);
-        Task<int> Update(int id, TeacherRequest classesRequest);
+        Task<int> Add(CreateTeacherRequest classesRequest);
+        Task<int> Update(int id, UpdateTeacherRequest classesRequest);
         Task<IList<TeacherResponse>> List();
         Task<TeacherResponse> Get(int id);
         Task<int> Delete(int id);

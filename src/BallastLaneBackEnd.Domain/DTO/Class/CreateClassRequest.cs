@@ -9,15 +9,9 @@ using System.Threading.Tasks;
 
 namespace BallastLaneBackEnd.Domain.DTO.Class
 {
-    public class ClassResponse
+    public class CreateClassRequest
     {
-        public int Id { get; set; }
         public string Number { get; set; }
-        public int SubjectId { get; set; }
-        public SubjectResponse Subject { get; set; }
-        public int TeacherId { get; set; }
-        public TeacherResponse Teacher { get; set; }
-        public IList<StudentResponse> Students { get; set; }
 
 
 

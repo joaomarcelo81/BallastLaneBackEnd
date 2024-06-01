@@ -37,29 +37,41 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostClass(ClassRequest subject)
+        public async Task<ActionResult> PostClass(CreateClassRequest @class)
         {
-            await _service.Add(subject);
-
-            if (subject == null)
+            try
             {
-                return NotFound();
+                if (@class == null)
+                {
+                    return NotFound();
+                }
+                await _service.Add(@class);
+                return StatusCode(201);
             }
-
-            return StatusCode(201);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult> PutClass(int id, ClassRequest subject)
-        {
-            if (id != subject.Id)
+            catch
             {
                 return BadRequest();
             }
 
-            await _service.Update(id, subject);
+        
+        }
 
-            return Ok();
+        [HttpPut("{id}")]
+        public async Task<ActionResult> PutClass(int id, UpdateClassRequest subject)
+        {
+            try
+            {
+                if (id != subject.Id)
+                {
+                    return BadRequest();
+                }
+                await _service.Update(id, subject);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{id}")]

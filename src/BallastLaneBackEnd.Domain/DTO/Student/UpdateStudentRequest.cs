@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BallastLaneBackEnd.Domain.Entities
+namespace BallastLaneBackEnd.Domain.DTO.Student
 {
-    public class Student : BaseEntity
+    public class UpdateStudentRequest
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
-
-        public virtual IList<Class>? Classes { get; set; }
     }
 }
