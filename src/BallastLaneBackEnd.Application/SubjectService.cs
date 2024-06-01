@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using BallastLaneBackEnd.Domain.DTO.Class;
+using BallastLaneBackEnd.Domain.DTO.Student;
 using BallastLaneBackEnd.Domain.DTO.Subject;
 using BallastLaneBackEnd.Domain.Entities;
 using BallastLaneBackEnd.Domain.Interfaces.Repositories;
 using BallastLaneBackEnd.Domain.Interfaces.Services;
 using BallastLaneBackEnd.Domain.Util;
+using BallastLaneBackEnd.Infra.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace BallastLaneBackEnd.Application
@@ -28,61 +30,84 @@ namespace BallastLaneBackEnd.Application
             _mapper = mapper;
         }
 
-        public async Task<int> Add(CreateSubjectRequest classesRequest)
+        public async Task<int> Add(CreateSubjectRequest createSubjectRequest)
         {
-            var subject = await _subjectRepository.Add(new Subject()
+            _logger.LogInformation($"Add subject", createSubjectRequest);
+            try
             {
-                Name = classesRequest.Name
-            });
-
-            return subject.Id;
+                var subject = _mapper.Map<Subject>(createSubjectRequest);
+                subject = await _subjectRepository.Add(subject);
+                return subject.Id;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error add subject", createSubjectRequest);
+                throw;
+            }
         }
 
-        public Task<int> Delete(int id)
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation($"Remover um subject pelo id");
+            try
+            {
+                var subject = await _subjectRepository.Delete(id);
+                var subjectResponse = _mapper.Map<SubjectResponse>(subject);
+                return (subjectResponse != null) ? subjectResponse.Id : 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error removing subject");
+                throw;
+            }
         }
 
         public async Task<SubjectResponse> Get(int id)
         {
-            var subject = await _subjectRepository.Get(id);
-
-            //  return list.Select(x => _mapper.Map<SubjectResponse>(x)).ToList();
-
-            return new SubjectResponse()
+            _logger.LogInformation($"Search for a subject by id");
+            try
             {
-                Id = subject.Id,
-                Name = subject.Name
-            };
+                var subject = await _subjectRepository.Get(id);
+                var subjectResponse = _mapper.Map<SubjectResponse>(subject);
+                return subjectResponse;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error List the subject");
+                throw;
+            }
         }
 
         public async Task<IList<SubjectResponse>> List()
         {
-            var list = await _subjectRepository.GetAll();
-
-            //  return list.Select(x => _mapper.Map<SubjectResponse>(x)).ToList();
-
-            return list.ConvertAll(x => new SubjectResponse()
-            {
-                Id = x.Id,
-                Name = x.Name
-            });
-        }
-
-        public async Task<int> Update(int id, UpdateSubjectRequest classesRequest)
-        {
-
-            _logger.LogInformation($"atualizando um classes", classesRequest);
+            _logger.LogInformation($"List all Subject");
             try
             {
-                var classesNovo = _mapper.Map<Subject>(classesRequest);
-                classesNovo.Id = id;
-                var classes = await _subjectRepository.Update(classesNovo);
+                var list = await _subjectRepository.GetAll();
+
+                return list.Select(x => _mapper.Map<SubjectResponse>(x)).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error List all Subject");
+                throw;
+            }
+        }
+
+        public async Task<int> Update(int id, UpdateSubjectRequest subjectRequest)
+        {
+
+            _logger.LogInformation($"Update subject", subjectRequest);
+            try
+            {
+                var subjectToBeUpdate = _mapper.Map<Subject>(subjectRequest);
+                subjectToBeUpdate.Id = id;
+                var subject = await _subjectRepository.Update(subjectToBeUpdate);
                 return id;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Erro ao atualizar um classes", classesRequest);
+                _logger.LogError(ex, $"Error update subject", subjectRequest);
                 throw;
             }
         }

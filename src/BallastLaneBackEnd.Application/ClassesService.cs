@@ -36,7 +36,7 @@ namespace BallastLaneBackEnd.Application
         }
         public async Task<int> Add(CreateClassRequest createClassesRequest)
         {
-            _logger.LogInformation($"Adiciondo um classes", createClassesRequest);
+            _logger.LogInformation($"Add classes", createClassesRequest);
             try
             {
                 var classes = _mapper.Map<Class>(createClassesRequest);
@@ -45,7 +45,7 @@ namespace BallastLaneBackEnd.Application
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"ao adicionar um classes", createClassesRequest);
+                _logger.LogError(ex, $"Error add classes", createClassesRequest);
                 throw;
             }
         }
@@ -53,7 +53,7 @@ namespace BallastLaneBackEnd.Application
         public async Task<int> Update(int id, UpdateClassRequest classesRequest)
         {
 
-            _logger.LogInformation($"atualizando um classes", classesRequest);
+            _logger.LogInformation($"Update classes", classesRequest);
             try
             {
                 var classToBeUpdate = await _classesRepository.Get(id);
@@ -93,13 +93,13 @@ namespace BallastLaneBackEnd.Application
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Erro ao atualizar um classes", classesRequest);
+                _logger.LogError(ex, $"Error update classes", classesRequest);
                 throw;
             }
         }
         public async Task<ClassResponse> Get(int id)
         {
-            _logger.LogInformation($"Buscar um classes pelo id");
+            _logger.LogInformation($"Search for a classes pelo id");
             try
             {
                 var classes = await _classesRepository.Get(id);
@@ -108,13 +108,13 @@ namespace BallastLaneBackEnd.Application
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Erro ao buscar o classes");
+                _logger.LogError(ex, $"Error List the classes");
                 throw;
             }
         }
         public async Task<int> Delete(int id)
         {
-            _logger.LogInformation($"Remover um classes pelo id");
+            _logger.LogInformation($"delete a class");
             try
             {
                 var classes = await _classesRepository.Delete(id);
@@ -123,13 +123,13 @@ namespace BallastLaneBackEnd.Application
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Erro ao remover o classes");
+                _logger.LogError(ex, $"Error delete a class");
                 throw;
             }
         }
         public async Task<IList<ClassResponse>> List()
         {
-            _logger.LogInformation($"listando todos os classess");
+            _logger.LogInformation($"List all  classess");
             try
             {
                 var lista = await _classesRepository.GetAll();
@@ -137,7 +137,7 @@ namespace BallastLaneBackEnd.Application
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Erro ao listar todos os classess");
+                _logger.LogError(ex, $"Error List all classess");
                 throw;
             }
         }

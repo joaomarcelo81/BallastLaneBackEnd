@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BallastLaneBackEnd.Domain.DTO.Class;
 using BallastLaneBackEnd.Domain.DTO.Student;
 using BallastLaneBackEnd.Domain.Entities;
 using BallastLaneBackEnd.Domain.Interfaces.Repositories;
@@ -27,56 +28,79 @@ namespace BallastLaneBackEnd.Application
             _mapper = mapper;
         }
 
-        public async Task<int> Add(CreateStudentRequest studentRequest)
+        public async Task<int> Add(CreateStudentRequest createStudentRequest)
         {
-            var student = await _studentRepository.Add(new Student()
+            _logger.LogInformation($"Add classes", createStudentRequest);
+            try
             {
-                Name = studentRequest.Name
-                ,BirthDate = studentRequest.BirthDate
-            });
+                var student = await _studentRepository.Add(new Student()
+                {
+                    Name = createStudentRequest.Name,
+                    BirthDate = createStudentRequest.BirthDate
+                });
 
-            return student.Id;
+                return student.Id;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error add classes", createStudentRequest);
+                throw;
+            }
         }
 
-        public Task<int> Delete(int id)
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation($"Remover um classes pelo id");
+            try
+            {
+                var student = await _studentRepository.Delete(id);
+                var studentResponse = _mapper.Map<StudentResponse>(student);
+                return (studentResponse != null) ? studentResponse.Id : 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error removing classes");
+                throw;
+            }
         }
 
         public async Task<StudentResponse> Get(int id)
         {
-            var student = await _studentRepository.Get(id);
-
-            //  return list.Select(x => _mapper.Map<StudentResponse>(x)).ToList();
-
-            return new StudentResponse()
+            _logger.LogInformation($"Search for a classes pelo id");
+            try
             {
-                Id = student.Id
-                ,
-                Name = student.Name
-                ,
-                BirthDate = student.BirthDate
-            };
+                var student = await _studentRepository.Get(id);
+                var studentResponse = _mapper.Map<StudentResponse>(student);
+                return studentResponse;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error List the classes");
+                throw;
+            }
         }
 
         public async Task<IList<StudentResponse>> List()
-        {
-          var list =  await _studentRepository.GetAll();
-            
-          //  return list.Select(x => _mapper.Map<StudentResponse>(x)).ToList();
+        {      
 
-            return list.ConvertAll(x => new StudentResponse()
+            _logger.LogInformation($"List all  classess");
+            try
             {
-                Id = x.Id
-                ,Name = x.Name
-                ,BirthDate = x.BirthDate                
-            });
+                var list = await _studentRepository.GetAll();
+
+                return list.Select(x => _mapper.Map<StudentResponse>(x)).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error List all classess");
+                throw;
+            }
         }
 
         public async Task<int> Update(int id, UpdateStudentRequest studentRequest)
         {
 
-            _logger.LogInformation($"atualizando um student", studentRequest);
+            _logger.LogInformation($"Update student", studentRequest);
             try
             {
                 var studentNovo = _mapper.Map<Student>(studentRequest);
@@ -86,7 +110,7 @@ namespace BallastLaneBackEnd.Application
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Erro ao atualizar um student", studentRequest);
+                _logger.LogError(ex, $"Error update student", studentRequest);
                 throw;
             }
         }

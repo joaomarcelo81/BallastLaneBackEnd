@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using BallastLaneBackEnd.Domain.DTO.Student;
+using BallastLaneBackEnd.Domain.DTO.Subject;
 using BallastLaneBackEnd.Domain.DTO.Teacher;
 using BallastLaneBackEnd.Domain.Entities;
 using BallastLaneBackEnd.Domain.Interfaces.Repositories;
@@ -28,20 +30,36 @@ namespace BallastLaneBackEnd.Application
             _mapper = mapper;
         }
 
-        public async Task<int> Add(CreateTeacherRequest teacherRequest)
+        public async Task<int> Add(CreateTeacherRequest createTeacherRequest)
         {
-            var teacher = await _teacherRepository.Add(new Teacher()
+            _logger.LogInformation($"Add a teacher", createTeacherRequest);
+            try
             {
-                Name = teacherRequest.Name,
-                SubjectSpecialty = teacherRequest.SubjectSpecialty
-            });
-
-            return teacher.Id;
+                var teacher = _mapper.Map<Teacher>(createTeacherRequest);
+                teacher = await _teacherRepository.Add(teacher);
+                return teacher.Id;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error add teacher", createTeacherRequest);
+                throw;
+            }
         }
 
-        public Task<int> Delete(int id)
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation($"Remover um classes pelo id");
+            try
+            {
+                var teacher = await _teacherRepository.Delete(id);
+                var teacherResponse = _mapper.Map<TeacherResponse>(teacher);
+                return (teacherResponse != null) ? teacherResponse.Id : 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error removing classes");
+                throw;
+            }
         }
 
         public async Task<TeacherResponse> Get(int id)
@@ -73,7 +91,7 @@ namespace BallastLaneBackEnd.Application
         public async Task<int> Update(int id, UpdateTeacherRequest teacherRequest)
         {
 
-            _logger.LogInformation($"atualizando um teacher", teacherRequest);
+            _logger.LogInformation($"Update teacher", teacherRequest);
             try
             {
                 var teacherNovo = _mapper.Map<Teacher>(teacherRequest);
@@ -83,7 +101,7 @@ namespace BallastLaneBackEnd.Application
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Erro ao atualizar um teacher", teacherRequest);
+                _logger.LogError(ex, $"Error update teacher", teacherRequest);
                 throw;
             }
         }
