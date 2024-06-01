@@ -61,3 +61,8 @@
 /src/BallastLaneBackEnd.Domain/obj/Release/net6.0/BallastLaneBackEnd.Domain.assets.cache
 /src/BallastLaneBackEnd.Domain/obj/Release/net6.0/BallastLaneBackEnd.Domain.GeneratedMSBuildEditorConfig.editorconfig
 /src/BallastLaneBackEnd.Infra/obj/Release/net6.0
+/src/BallastLaneBackEnd.Test/bin/Debug/net6.0
+/src/BallastLaneBackEnd.Test/obj/Debug/net6.0
+/src/BallastLaneBackEnd.Test/obj/Release/net6.0
+/src/BallastLaneBackEnd.Test/obj
+/src/BallastLaneBackEnd.Test/bin/Release/net6.0
