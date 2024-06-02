@@ -11,8 +11,6 @@ namespace BallastLaneBackEnd.Infra.Repositories
         public ClassRepository(SchoolContext context) : base(context)
         {
             _context= context;
-        
-
         }
         public override async Task<Class> Get(int id)
         {

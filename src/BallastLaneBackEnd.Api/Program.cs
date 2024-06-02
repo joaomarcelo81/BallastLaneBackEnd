@@ -9,6 +9,11 @@ using BallastLaneBackEnd.Api.Handler;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using BallastLaneBackEnd.Api.Validation;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Options;
+using BallastLaneBackEnd.Api.Authentication;
+using BallastLaneBackEnd.Domain.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,49 +64,108 @@ c.SwaggerDoc("v1", new()
     Description = "API for the Proposed Challenge for the Offered Position\r\nDon't forget to insert the Apikey: 414fde74-d5e6-48ab-8063-9111c6b74d71",
 });
     c.EnableAnnotations();
-    c.AddSecurityDefinition("X-API-Key", new OpenApiSecurityScheme
+
+
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Name = "X-API-Key",
+        Description = @"Authentication JWT. \r\n\r\n
+                        Ex. Bearer {token}",
+        Name = "Authorization",
         In = ParameterLocation.Header,
-        Scheme = "X-API-Key",
-        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
     });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+        {
         {
             new OpenApiSecurityScheme
             {
-                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "X-API-Key" }
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header
             },
             new List<string>()
         }
-    });
+        });
+
+
+
+
+    //c.AddSecurityDefinition("X-API-Key", new OpenApiSecurityScheme
+    //{
+    //    Name = "X-API-Key",
+    //    In = ParameterLocation.Header,
+    //    Scheme = "X-API-Key",
+    //    Type = SecuritySchemeType.ApiKey,
+    //});
+    //c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    //{
+    //    {
+    //        new OpenApiSecurityScheme
+    //        {
+    //            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "X-API-Key" }
+    //        },
+    //        new List<string>()
+    //    }
+    //});
 });
 
 builder.Services.AddSharedServices();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-//builder.Services.AddDbContext<SchoolContext>(options =>
-//     options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-
 builder.Services.AddTransient<IApiKeyValidation, ApiKeyValidation>();
-
+builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer();
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("ApiKeyPolicy", policy =>
-    {
-        policy.AddAuthenticationSchemes(new[] { JwtBearerDefaults.AuthenticationScheme });
-        policy.Requirements.Add(new ApiKeyRequirement());
-    });
 
+
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//}).AddJwtBearer();
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("ApiKeyPolicy", policy =>
+//    {
+//        policy.AddAuthenticationSchemes(new[] { JwtBearerDefaults.AuthenticationScheme });
+//        policy.Requirements.Add(new ApiKeyRequirement());
+//    });
+
+//});
+//builder.Services.AddScoped<IAuthorizationHandler, ApiKeyHandler>();
+
+
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("A094F7D2-A244-49C6-8ADA-D1771757516Z"));
+builder.Services.AddAuthentication(authOptions =>
+{
+    authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer("Bearer", options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
+        IssuerSigningKey = key,
+        ValidateAudience = false,
+        ValidateIssuer = false
+
+    };
 });
-builder.Services.AddScoped<IAuthorizationHandler, ApiKeyHandler>();
+
+
+
+builder.Services.AddMemoryCache();
+
+builder.Services.AddResponseCaching();
+
+
 
 var app = builder.Build();
 

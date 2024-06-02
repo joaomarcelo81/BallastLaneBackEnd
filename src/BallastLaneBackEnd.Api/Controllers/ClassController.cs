@@ -1,11 +1,15 @@
 ﻿using BallastLaneBackEnd.Domain.DTO.Class;
 using BallastLaneBackEnd.Domain.Entities;
 using BallastLaneBackEnd.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BallastLaneBackEnd.Api.Controllers
 {
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class ClassController : ControllerBase
@@ -18,22 +22,41 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ClassResponse>> GetClasss()
+        public async Task<ActionResult> GetClasss()
         {
-            return await _service.List();
+      
+
+            try
+            {
+                return Ok(await _service.List());
+            }
+            catch 
+            {
+
+                return BadRequest();
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetClass(int id)
         {
-            var subject = await _service.Get(id);
-
-            if (subject == null)
+           
+            try
             {
-                return NotFound();
-            }
+                var subject = await _service.Get(id);
 
-            return Ok(subject);
+                if (subject == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(subject);
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost]

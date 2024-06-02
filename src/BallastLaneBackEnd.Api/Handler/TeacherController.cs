@@ -1,49 +1,43 @@
-﻿
-using BallastLaneBackEnd.Domain.DTO.Student;
+﻿using BallastLaneBackEnd.Domain.DTO.Teacher;
 using BallastLaneBackEnd.Domain.Entities;
 using BallastLaneBackEnd.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
-namespace BallastLaneBackEnd.Api.Controllers
+namespace BallastLaneBackEnd.Api.Handler
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    // [Authorize(Policy = "ApiKeyPolicy")]
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class TeacherController : ControllerBase
     {
-        private readonly IStudentService _service;
+        private readonly ITeacherService _service;
 
-        public StudentController(IStudentService service)
+        public TeacherController(ITeacherService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetStudents()
+        public async Task<ActionResult> GetTeachers()
         {
-
             try
             {
                 return Ok(await _service.List());
             }
             catch
             {
+
                 return BadRequest();
             }
-
-
-        
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetStudent(int id)
+        public async Task<ActionResult> GetTeacher(int id)
         {
-      
+
 
             try
             {
@@ -60,12 +54,12 @@ namespace BallastLaneBackEnd.Api.Controllers
             {
                 return BadRequest();
             }
-
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostStudent(CreateStudentRequest subject)
+        public async Task<ActionResult> PostTeacher(CreateTeacherRequest subject)
         {
+
 
             try
             {
@@ -75,45 +69,43 @@ namespace BallastLaneBackEnd.Api.Controllers
                 {
                     return NotFound();
                 }
+
                 return StatusCode(201);
-
             }
-            catch (Exception)
+            catch
             {
-
                 return BadRequest();
             }
-     
-
-           
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutStudent(int id, UpdateStudentRequest subject)
+        public async Task<ActionResult> PutTeacher(int id, UpdateTeacherRequest subject)
         {
+
+
+
             try
             {
                 if (id != subject.Id)
                 {
                     return BadRequest();
                 }
+
                 await _service.Update(id, subject);
 
                 return Ok();
             }
             catch
             {
-
                 return BadRequest();
             }
-         
-
-         
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStudent(int id)
-        { 
+        public async Task<IActionResult> DeleteTeacher(int id)
+        {
+
+
 
             try
             {
@@ -125,7 +117,6 @@ namespace BallastLaneBackEnd.Api.Controllers
             {
                 return BadRequest();
             }
-
         }
     }
 }

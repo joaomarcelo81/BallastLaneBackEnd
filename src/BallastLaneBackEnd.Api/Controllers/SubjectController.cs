@@ -1,11 +1,14 @@
 ﻿using BallastLaneBackEnd.Domain.DTO.Subject;
 using BallastLaneBackEnd.Domain.Entities;
 using BallastLaneBackEnd.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BallastLaneBackEnd.Api.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class SubjectController : ControllerBase
@@ -18,22 +21,39 @@ namespace BallastLaneBackEnd.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<SubjectResponse>> GetSubjects()
+        public async Task<ActionResult> GetSubjects()
         {
-            return await _service.List();
+  
+            try
+            {
+                return  Ok(await _service.List());
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetSubject(int id)
         {
-            var subject = await _service.Get(id);
+     
 
-            if (subject == null)
+            try
             {
-                return NotFound();
-            }
+                var subject = await _service.Get(id);
 
-            return Ok(subject);
+                if (subject == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(subject);
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost]
@@ -52,22 +72,39 @@ namespace BallastLaneBackEnd.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> PutSubject(int id, UpdateSubjectRequest subject)
         {
-            if (id != subject.Id)
+   
+
+            try
+            {
+                if (id != subject.Id)
+                {
+                    return BadRequest();
+                }
+
+                await _service.Update(id, subject);
+
+                return Ok();
+            }
+            catch
             {
                 return BadRequest();
             }
-
-            await _service.Update(id, subject);
-
-            return Ok();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSubject(int id)
-        {
-            await _service.Delete(id);
+        {      
 
-            return Ok();
+            try
+            {
+                await _service.Delete(id);
+
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }     
     }
 }

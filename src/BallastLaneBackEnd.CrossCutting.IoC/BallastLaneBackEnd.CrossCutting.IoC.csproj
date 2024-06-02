@@ -16,4 +16,8 @@
     <ProjectReference Include="..\BallastLaneBackEnd.Infra\BallastLaneBackEnd.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+
 </Project>

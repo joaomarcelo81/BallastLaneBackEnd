@@ -13,7 +13,7 @@ namespace BallastLaneBackEnd.Infra.Initializer
         {
             context.Database.EnsureCreated();
 
-        
+            InitializerLogin(context);
             InitializerStudent(context);
 
 
@@ -25,7 +25,23 @@ namespace BallastLaneBackEnd.Infra.Initializer
 
             context.SaveChanges();
         }
+        private static void InitializerLogin(SchoolContext context)
+        {
+            if (context.Users.Any())
+            {
+                return;
+            }
 
+            var users = new User[]
+            {
+                new User{Login="John", Password= "123123"}
+            };
+
+            foreach (var p in users)
+            {
+                context.Users.Add(p);
+            }
+        }
         private static void InitializerStudent(SchoolContext context)
         {
             if (context.Students.Any())

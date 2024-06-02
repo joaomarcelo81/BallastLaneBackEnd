@@ -26,6 +26,7 @@ namespace BallastLaneBackEnd.CrossCutting.IoC
             services.AddTransient<ISubjectService, SubjectService>();
             services.AddTransient<IClassService, ClassService>();
             services.AddTransient<ITeacherService, TeacherService>();
+            services.AddTransient <IUserService, UserService>();
 
             return services;
         }
@@ -36,6 +37,8 @@ namespace BallastLaneBackEnd.CrossCutting.IoC
             services.AddTransient<IRepository<Subject>, SubjectRepository>();
             services.AddTransient<IRepository<Class>, ClassRepository>();
             services.AddTransient<IRepository<Teacher>, TeacherRepository>();
+            services.AddTransient< IUserRepository, UserRepository >();
+
             return services;
         }
 

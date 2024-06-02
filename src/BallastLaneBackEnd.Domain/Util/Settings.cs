@@ -12,5 +12,8 @@ namespace BallastLaneBackEnd.Domain.Util
         public const string ApiKeyName = "ApiKey";
 
         public string ApiKey { get; set; }
+
+        public string SaltKey { get; set; }
+        public string Secret { get; set; }
     }
 }
